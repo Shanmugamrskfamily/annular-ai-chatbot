@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import AuthForm from '../Components/AuthForm';
 import { loginAPI } from '../Services/APIServices';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate=useNavigate();
 
     const handleFieldChange = (fieldName, value) => {
         if (fieldName === 'Email') {
@@ -30,6 +32,12 @@ function Login() {
             console.log(userData);
             setEmail('');
             setPassword('');
+            localStorage.setItem('token','Hello');
+            setTimeout(() => {
+                localStorage.removeItem('token');
+              }, 30*60*1000);
+              navigate('/signup');
+
         } catch (error) {
             console.error(error);
         }
