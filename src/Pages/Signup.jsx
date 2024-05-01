@@ -51,7 +51,7 @@ function Signup() {
     ];
 
     return (
-        <div>
+        <div className='mt-5'>
             <AuthForm 
                 formType='signupForm' 
                 formFields={formFields} 

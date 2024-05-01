@@ -44,7 +44,7 @@ function Login() {
     }
 
     return (
-        <div>
+        <div className='mt-5'>
             <AuthForm formType='loginForm' formFields={formFields} title='Login' onChange={handleFieldChange} handleLogin={handleLogin}/>
         </div>
     )
