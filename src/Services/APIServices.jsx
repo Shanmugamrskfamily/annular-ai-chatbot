@@ -2,18 +2,13 @@ import axios from "axios";
 
 const BASE_API='';
 
-const loginAPI=(data)=>{
-async function login(){
+export const loginAPI=async (data)=>{
+
     try {
         let res=await axios.post(`${BASE_API}/login`,data);
-        let data=await res.json();
+        return res.data;
     } catch (error) {
         console.error(error);
-        throw new Error(error);
+        throw error;
     }
-}
-login();
-}
-
-
-export {loginAPI}
+};
