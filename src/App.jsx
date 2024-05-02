@@ -35,6 +35,7 @@ function App() {
         <Routes>
           <Route path='/authenticated' element={<Authenticated />} />
           <Route path='*' element={<PageNotFound/>} />
+          {/* <Route path="*" element={<Navigate to={token ? "/app/welcome" : "/login"} replace />}/> */}
         </Routes>
       </BrowserRouter>
     );
