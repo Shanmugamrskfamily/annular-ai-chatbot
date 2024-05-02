@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from './Redux/Slicers/UserSlice';
 import Authenticated from './Authenticated';
 import PageNotFound from './Pages/PageNotFound';
+import { ComplexNavbar } from './Components/Navbar';
 
 function App() {
   const isAuthenticated = useSelector(state => state.user.isAuthenticated);
@@ -22,6 +23,7 @@ function App() {
   if (!isAuthenticated) {
     return (
       <BrowserRouter>
+      <ComplexNavbar/>
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
@@ -32,6 +34,7 @@ function App() {
   } else {
     return (
       <BrowserRouter>
+      <ComplexNavbar/>
         <Routes>
           <Route path='/authenticated' element={<Authenticated />} />
           <Route path='*' element={<PageNotFound/>} />
