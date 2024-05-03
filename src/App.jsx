@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes, Navigate, useNavigate } from 'react-route
 import './App.css';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from './Redux/Slicers/UserSlice';
 import Authenticated from './Authenticated';
@@ -16,16 +16,19 @@ import TalkEase from './Pages/TalkEase';
 import { Sidebar } from './Components/UserComponents/Sidebar';
 
 function App() {
-  
-  
+  const [sidebarOpen,setSidebarOpen]=useState(true);
+  const hanldeSidebar=()=>{
+    setSidebarOpen(!sidebarOpen);
+  }
     return (
       <BrowserRouter>
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition: Bounce/>
       <NavbarMain/>
       <div className='flex'>
-      <Sidebar/>
-      <div className='flex-1'>
-      <MainHeader/>
+      <Sidebar isSidebarOpen={hanldeSidebar}/>
+      
+      <MainHeader isLogout={hanldeSidebar}/>
+      <div style={sidebarOpen ? { marginLeft: '22rem' } : {}}>
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />

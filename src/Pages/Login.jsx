@@ -41,6 +41,7 @@ function Login() {
             setUserName('');
             setPassword('');
             localStorage.setItem('token','Hello');
+            localStorage.setItem('userRole','user');
             setTimeout(() => {
                 localStorage.removeItem('token');
               }, 30*60*1000);
