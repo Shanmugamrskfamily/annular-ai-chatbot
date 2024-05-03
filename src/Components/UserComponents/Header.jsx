@@ -96,7 +96,7 @@ export function MainHeader() {
   return (
     <>
     {location.pathname==='/login'||location.pathname==='/signup'?(null):(
-      <div className="fixed top-0 left-0 right-0  bg-white py-4 px-6">
+      <div className="fixed top-0 right-0  bg-white py-4 px-6">
         <div className="ml-auto">
           <ProfileMenu />
         </div>

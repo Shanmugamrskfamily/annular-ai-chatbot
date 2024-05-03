@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Card,
   Typography,
@@ -10,7 +10,7 @@ import {
   Accordion,
   AccordionHeader,
   AccordionBody,
-  
+  // Alert,
 } from "@material-tailwind/react";
 import {
   PresentationChartBarIcon,
@@ -19,45 +19,27 @@ import {
   Cog6ToothIcon,
   InboxIcon,
   PowerIcon,
-  XMarkIcon,
-  BarsArrowDownIcon,
 } from "@heroicons/react/24/solid";
 import {
   ChevronRightIcon,
   ChevronDownIcon,
+  // CubeTransparentIcon,
 } from "@heroicons/react/24/outline";
 import { useLocation } from "react-router-dom";
  
 export function Sidebar() {
   const [open, setOpen] = React.useState(0);
-  
+  // const [openAlert, setOpenAlert] = React.useState(true);
   let location=useLocation();
 
  
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
-  
-  const [showSidebar, setShowSidebar] = useState('block');
-  const [showBars, setShowBars] = useState('hidden');
-
-  const handleBars = () => {
-    setShowBars(showBars === 'block' ? 'hidden' : 'block');
-    setShowSidebar(showSidebar === 'hidden' ? 'block' : 'hidden');
-  }
-
-  const handleShowSidebar = () => {
-    setShowSidebar(showSidebar === 'block' ? 'hidden' : 'block');
-    setShowBars('block');
-  }
-
+ 
   return (
-    <>
-      {location.pathname === '/login' || location.pathname === '/signup' ? (null) : (
-        <>
-        <BarsArrowDownIcon className={`h-8 w-8 cursor-pointer fixed top-0 left-0 ${showBars}`} onClick={handleBars} />
-        <Card className={`h-[calc(100vh-1px)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 ${showSidebar}`}>
-          <XMarkIcon className="h-8 w-8 cursor-pointer fixed top-5 left-72" onClick={handleShowSidebar} />
+    <>{location.pathname==='/login'||location.pathname==='/signup'?(null):(
+      <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 flex p-2 justify-center">
         <img src="./images/logo.png" alt="brand" className="h-30 w-40" />
       </div>
@@ -169,8 +151,31 @@ export function Sidebar() {
           Log Out
         </ListItem>
       </List>
+      {/* <Alert open={openAlert} className="mt-auto" onClose={() => setOpenAlert(false)}>
+        <CubeTransparentIcon className="mb-4 h-12 w-12" />
+        <Typography variant="h6" className="mb-1">
+          Upgrade to PRO
+        </Typography>
+        <Typography variant="small" className="font-normal opacity-80">
+          Upgrade to Material Tailwind PRO and get even more components, plugins, advanced features
+          and premium.
+        </Typography>
+        <div className="mt-4 flex gap-3">
+          <Typography
+            as="a"
+            href="#"
+            variant="small"
+            className="font-medium opacity-80"
+            onClick={() => setOpenAlert(false)}
+          >
+            Dismiss
+          </Typography>
+          <Typography as="a" href="#" variant="small" className="font-medium">
+            Upgrade Now
+          </Typography>
+        </div>
+      </Alert> */}
     </Card>
-    </>
     )}
     </>
   );

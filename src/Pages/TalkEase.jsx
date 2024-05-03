@@ -5,8 +5,8 @@ function TalkEase() {
 
 
   return (
-    <div>
-      <h1>Talk Ease</h1>
+    <div className='flex justify-center mt-32'>
+      <h1 className='text-center'>Talk Ease</h1>
     </div>
   )
 }

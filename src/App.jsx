@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import { MainHeader } from './Components/UserComponents/Header';
 import Protected from './Routes/Protected';
 import TalkEase from './Pages/TalkEase';
+import { Sidebar } from './Components/UserComponents/Sidebar';
 
 function App() {
   
@@ -21,6 +22,9 @@ function App() {
       <BrowserRouter>
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition: Bounce/>
       <NavbarMain/>
+      <div className='flex'>
+      <Sidebar/>
+      <div className='flex-1'>
       <MainHeader/>
         <Routes>
           <Route path='/login' element={<Login />} />
@@ -28,6 +32,8 @@ function App() {
           <Route path='/talk-ease' element={<Protected> <TalkEase/> </Protected>}/>
           <Route path='*' element={<PageNotFound/>} />
         </Routes>
+        </div>
+        </div>
       </BrowserRouter>
     );
   } 
