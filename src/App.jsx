@@ -7,43 +7,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authenticate } from './Redux/Slicers/UserSlice';
 import Authenticated from './Authenticated';
 import PageNotFound from './Pages/PageNotFound';
-import { ComplexNavbar } from './Components/Navbar';
-import { Header } from './Components/Header';
+import 'react-toastify/dist/ReactToastify.css';
+import  NavbarMain  from './Components/AuthComponents/Navbar';
+import { ToastContainer } from 'react-toastify';
+import { MainHeader } from './Components/UserComponents/Header';
+import Protected from './Routes/Protected';
+import TalkEase from './Pages/TalkEase';
 
 function App() {
-  const isAuthenticated = useSelector(state => state.user.isAuthenticated);
-  const dispatch = useDispatch();
   
-
-  useEffect(() => {
-    dispatch(authenticate());
-  }, [dispatch]);
-
   
-
-  if (!isAuthenticated) {
     return (
       <BrowserRouter>
-      <Header/>
+      <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition: Bounce/>
+      <NavbarMain/>
+      <MainHeader/>
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/talk-ease' element={<Protected> <TalkEase/> </Protected>}/>
           <Route path='*' element={<PageNotFound/>} />
         </Routes>
       </BrowserRouter>
     );
-  } else {
-    return (
-      <BrowserRouter>
-      
-        <Routes>
-          <Route path='/authenticated' element={<Authenticated />} />
-          <Route path='*' element={<PageNotFound/>} />
-          {/* <Route path="*" element={<Navigate to={token ? "/app/welcome" : "/login"} replace />}/> */}
-        </Routes>
-      </BrowserRouter>
-    );
-  }
-}
+  } 
 
 export default App;

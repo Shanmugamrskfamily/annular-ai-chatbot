@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
-import AuthForm from '../Components/AuthForm';
+import React, { useEffect, useState } from 'react';
+import AuthForm from '../Components/AuthComponents/AuthForm';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate=useNavigate();
+
+    useEffect(()=>{
+        let token=localStorage.getItem('token');
+        if(token){
+            navigate('/talk-ease');
+        }
+    },[]);
 
     const handleSignup = async (e) => {
         e.preventDefault();
@@ -19,6 +29,8 @@ function Signup() {
             // Clear form inputs after successful signup
             setUsername('');
             setPassword('');
+            toast.success('Signup Success! Please login to continue..');
+            navigate('/login');
         } catch (error) {
             console.error(error);
         }
