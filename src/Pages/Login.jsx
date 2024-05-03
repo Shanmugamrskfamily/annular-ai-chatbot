@@ -4,20 +4,20 @@ import { loginAPI } from '../Services/APIServices';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-    const [email, setEmail] = useState('');
+    const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const navigate=useNavigate();
 
     const handleFieldChange = (fieldName, value) => {
-        if (fieldName === 'Email') {
-            setEmail(value);
+        if (fieldName === 'Username') {
+            setUserName(value);
         } else if (fieldName === 'Password') {
             setPassword(value);
         }
     };
 
     const formFields = [
-        { label: 'Email', type: 'email', value: email },
+        { label: 'Username', type: 'text', value: username },
         { label: 'Password', type: 'password', value: password }
     ];
 
@@ -25,12 +25,12 @@ function Login() {
         e.preventDefault();
         try {
             const userData = {
-                email: email, 
+                username: username, 
                 password: password
             };
             //const response = await loginAPI(userData);
             console.log(userData);
-            setEmail('');
+            setUserName('');
             setPassword('');
             localStorage.setItem('token','Hello');
             setTimeout(() => {
