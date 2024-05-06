@@ -2,10 +2,6 @@ import { BrowserRouter, Route, Routes, Navigate, useNavigate } from 'react-route
 import './App.css';
 import Login from './Pages/Login';
 import Signup from './Pages/Signup';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { authenticate } from './Redux/Slicers/UserSlice';
-import Authenticated from './Authenticated';
 import PageNotFound from './Pages/PageNotFound';
 import 'react-toastify/dist/ReactToastify.css';
 import  NavbarMain  from './Components/AuthComponents/Navbar';
@@ -13,30 +9,25 @@ import { ToastContainer } from 'react-toastify';
 import { MainHeader } from './Components/UserComponents/Header';
 import Protected from './Routes/Protected';
 import TalkEase from './Pages/TalkEase';
-import { Sidebar } from './Components/UserComponents/Sidebar';
+import Convert from './Pages/Convert';
+import ActiveUserData from './Pages/ActiveUserData';
+import MoreOptions from './Components/UserComponents/MoreOptions';
+
 
 function App() {
-  const [sidebarOpen,setSidebarOpen]=useState(true);
-  const hanldeSidebar=()=>{
-    setSidebarOpen(!sidebarOpen);
-  }
+  
     return (
       <BrowserRouter>
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition: Bounce/>
       <NavbarMain/>
-      <div className='flex'>
-      <Sidebar isSidebarOpen={hanldeSidebar}/>
-      
-      <MainHeader isLogout={hanldeSidebar}/>
-      <div style={sidebarOpen ? { marginLeft: '22rem' } : {}}>
+      <MoreOptions/>
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/talk-ease' element={<Protected> <TalkEase/> </Protected>}/>
+          <Route path='/active-users' element={<Protected> <ActiveUserData/> </Protected>}/>
           <Route path='*' element={<PageNotFound/>} />
         </Routes>
-        </div>
-        </div>
       </BrowserRouter>
     );
   } 

@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuthenticated: false,
-  userRole: 'user'
+  userRole: 'user',
+  token:null
 };
 
 const userSlice = createSlice({
@@ -11,6 +12,8 @@ const userSlice = createSlice({
   reducers: {
     authenticate(state) {
       const token = localStorage.getItem('token');
+      state.token=token;
+      console.log('State Token:',state.token);
       state.isAuthenticated = !!token;
     }
   }

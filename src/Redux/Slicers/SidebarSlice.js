@@ -11,22 +11,24 @@ const sidebarSlice = createSlice({
     reducers: {
       userMainMenu: (state, userRole) => {
         if (userRole.payload=== 'user') {
-          state.menuMainOptions = ['Home', 'TalkEase', 'SummarEase', 'DocConnect', 'Web Seach', 'Ask Annular', 'Search and Chat(Pilot)'];
+          state.menuMainOptions = [['TalkEase','/talk-ease'], ['SummarEase','/summerease'],['DocConnect','/doc-connect'],
+          ['Web Seach','/web-search'],['Ask Annular','/ask-annular'],['Search and Chat(Pilot)','/search-and-chat']];
         }
       },
       userSubMenu: (state, userRole) => {
         if (userRole.payload=== 'user') {
-          state.menuSubOptions = ['Chat Session 1', 'Chat Session 2', 'Chat Session 3'];
+          state.menuSubOptions = [['Chat Session 1','/session-1'],['Chat Session 2','/session-2'],['Chat Session 3','/session-3']];
         }
       },
       adminMainMenu: (state, userRole) => {
         if (userRole.payload=== 'admin') {
-          state.menuMainOptions = ['Home', 'TalkEase', 'SummarEase', 'DocConnect', 'Web Seach', 'Ask Annular', 'Search and Chat(Pilot)'];
+          state.menuMainOptions = [['Manage Users','/active-users'],['TalkEase','/talk-ease'], ['SummarEase','/summerease'],['DocConnect','/doc-connect'],
+          ['Web Seach','/web-search'],['Ask Annular','/ask-annular'],['Search and Chat(Pilot)','/search-and-chat']];
         }
       },
       adminSubMenu: (state, userRole) => {
         if (userRole.payload=== 'admin') {
-          state.menuSubOptions = ['Chat Session 1', 'Chat Session 2', 'Chat Session 3'];
+          state.menuSubOptions = [['Chat Session 1','/session-1'],['Chat Session 2','/session-2'],['Chat Session 3','/session-3']];;
         }
       }
     }
