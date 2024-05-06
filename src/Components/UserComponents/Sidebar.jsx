@@ -53,12 +53,12 @@ export function Sidebar() {
   return (
     <div className="flex-col">
           <BarsArrowDownIcon className={`h-8 w-8 cursor-pointer top-0 left-0 ${showBars}`} onClick={handleBars} />
-          <div className="container overflow-y-auto sidebar-main-container">
-          <Card className={` w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 ${showSidebar} dark:bg-black dark:text-white`}>
+          <Card className={` w-full max-w-[20rem] p-2 shadow-xl shadow-blue-gray-900/5 ${showSidebar} dark:bg-black dark:text-white`}>
             <XMarkIcon className="h-8 w-8 cursor-pointer relative top-5 left-56" onClick={handleShowSidebar} />
             <div className="mb-2 flex p-2 justify-center">
               <img src="./images/logo.png" alt="brand" className="h-30 w-40" />
             </div>
+            <div className="container overflow-y-auto sidebar-main-container">
             <List>
               {menuMainItems ? menuMainItems.map((item, i) => (
                 <Link key={i} to={item[1]}>
@@ -70,9 +70,9 @@ export function Sidebar() {
                 </Link>
               )) : null}
             </List>
-            </Card>
             </div>
             <hr className="my-2 border-blue-gray-50" />
+            </Card>
             <div className="container overflow-y-auto sidebar-sub-container">
             <Card className={` w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 ${showSidebar} dark:bg-black dark:text-white`}>
             <List>

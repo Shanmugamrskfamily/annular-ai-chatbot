@@ -14,7 +14,7 @@ const PromptComponent = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center space-x-2">
+    <form onSubmit={handleSubmit} className="flex items-center w-full space-x-2">
       <input
         type="text"
         value={inputValue}

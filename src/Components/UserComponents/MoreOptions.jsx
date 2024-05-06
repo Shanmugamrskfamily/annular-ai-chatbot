@@ -41,7 +41,7 @@ function MoreOptions() {
                         {options.map((option, index) => (
                             <button
                                 key={index}
-                                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                className={`block w-full px-4 py-2 text-sm ${option.icon===PowerIcon?'text-red-400 hover:bg-red-900 hover:text-white':'text-gray-700 hover:bg-gray-100'}  hover:text-gray-900`}
                                 role="menuitem"
                                 onClick={() => console.log(option.label)}
                             >

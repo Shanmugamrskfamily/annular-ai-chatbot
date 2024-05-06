@@ -41,7 +41,7 @@ function TalkEase() {
             ))}
           </div>
         </div>
-        <div className="fixed w-3/4 bottom-0 mb-6">
+        <div className="fixed bottom-0 w-3/4">
           <PromptComponent onSubmit={handleSubmit}/>
         </div>
         </div>
