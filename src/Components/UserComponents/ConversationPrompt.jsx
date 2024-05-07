@@ -4,10 +4,14 @@ import { PaperAirplaneIcon, PaperClipIcon } from "@heroicons/react/24/solid";
 function ConversationPrompt({ placeholderText, onSendMessage }) {
   const [message, setMessage] = useState('');
   const [file, setFile] = useState(null); // State to store the uploaded file
+  const textareaRef = useRef(null); // Ref to textarea element
   const fileInputRef = useRef(null); // Ref to file input element
 
   const handleMessageChange = (event) => {
     setMessage(event.target.value);
+    // Automatically adjust textarea height
+    textareaRef.current.style.height = "auto";
+    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
   };
 
   const handleFileChange = (event) => {
@@ -34,12 +38,13 @@ function ConversationPrompt({ placeholderText, onSendMessage }) {
   return (
     <div className='w-full bottom-0'>
       <div className="flex border border-gray-300 rounded-lg">
-        <textarea
+        <input
+          ref={textareaRef}
           type="text"
           placeholder={placeholderText}
           value={message}
           onChange={handleMessageChange}
-          className="flex-1 outline-none px-2"
+          className="flex-1 outline-none px-2 resize-none"
         />
         <input
           type="file"

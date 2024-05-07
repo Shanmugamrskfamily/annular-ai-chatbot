@@ -30,7 +30,10 @@ export default function NavbarMain() {
             href="#"
             className="mr-4 cursor-pointer py-1.5  text-2xl font-bold"
           >
-            Annular AI
+            <div className="flex">
+              <img src="./images/logo.png" alt="Logo" className=" h-12 w-20" />
+              <span className="ml-2 justify-center mt-3">Annular AI</span>
+            </div>
           </Typography>
           <div className="flex-end items-center gap-4">
             <Link to={navItem==='Login'?'/login':'/signup'}>

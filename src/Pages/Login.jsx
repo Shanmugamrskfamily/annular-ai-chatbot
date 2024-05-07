@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,6 +12,13 @@ const Login = () => {
     });
     const navigate=useNavigate();
 
+    useEffect(()=>{
+        let token=localStorage.getItem('token');
+        if(token){
+            navigate('/talk-ease')
+        }
+    },[]);
+
     const formik = useFormik({
         initialValues: {
             usernameOrEmail: '',
@@ -22,12 +29,12 @@ const Login = () => {
             // Handle login logic here
             console.log('Login form submitted with values:', values);
             localStorage.setItem('token','Hello');
-            localStorage.setItem('userRole','user');
+            localStorage.setItem('userRole','admin');
             setTimeout(() => {
                 localStorage.removeItem('token');
               }, 30*60*1000);
               toast.success('Login Success!');
-              navigate('/talk-ease');
+              navigate('/pending-aprovals');
         }
     });
 

@@ -1,112 +1,154 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../Redux/Slicers/AdminSlice';
 import { Sidebar } from '../Components/UserComponents/Sidebar';
 import { XCircleIcon } from "@heroicons/react/24/solid";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function ActiveUserData() {
     const activeUsersData = useSelector(state => state.adminControlls.activeUsersData);
     const dispatch = useDispatch();
-    let location=useLocation();
+    const [searchInput, setSearchInput] = useState('');
+    const [filteredUsers, setFilteredUsers] = useState([]);
+    let [main, setMain] = useState('ml-[19rem]');
+    let [sidebar,setSidebar]=useState('w-[18%] h-full')
+    let location = useLocation();
+    const navigate=useNavigate();
     
     useEffect(() => {
         const userRole = localStorage.getItem('userRole');
         dispatch(getUsers(userRole));
     }, [dispatch]);
-    
+
+    useEffect(() => {
+        console.log(activeUsersData);
+        const filtered = activeUsersData.filter(user =>
+            user.name.toLowerCase().includes(searchInput.toLowerCase()) ||
+            user.userName.toLowerCase().includes(searchInput.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchInput.toLowerCase()) ||
+            user.mobileNum.includes(searchInput) ||
+            (user.organisation && user.organisation.toLowerCase().includes(searchInput.toLowerCase())) ||
+            (user.jobTitle && user.jobTitle.toLowerCase().includes(searchInput.toLowerCase()))
+        );
+        setFilteredUsers(filtered);
+    }, [searchInput, activeUsersData]);
+
+    const handlesideBarClosed = () => {
+        setMain(main === 'ml-[19rem]' ? 'ml-[3rem]' : 'ml-[19rem]');
+        setSidebar(sidebar==='w-[18%] h-full'?'':'w-[18%] h-full')
+    }
+
+    const handleSearchChange = (e) => {
+        setSearchInput(e.target.value);
+    };
+
+    useEffect(()=>{
+        let role=localStorage.getItem('userRole');
+        if(role!=='admin'){
+            toast.warn('Your not authorised to view this page!');
+            navigate('/talk-ease');
+        }
+    },[])
+
     return (
-        <div className='flex'>
-            <Sidebar/>
-        <div className="flex-1 mt-12 ml-4 overflow-x-auto">
-        <div className='flex mb-5'>
-            <Link
-                className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/pending-aprovals' ? 'font-bold underline' : ''}`}
-                to='/pending-aprovals'
-            >
-                Pending Approvals
-            </Link>
-            <Link
-                className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/active-users' ? 'font-bold underline' : ''}`}
-                to='/active-users'
-            >
-                Active Users
-            </Link>
-        </div>
-            <table className="min-w-full divide-y divide-gray-200 p-2">
-                <thead className="bg-gray-50 border">
-                    <tr>
-                        <th scope="col" className="px-3 border py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Name
-                        </th>
-                        <th scope="col" className="px-3 py-2 border text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Username
-                        </th>
-                        <th scope="col" className="border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Email
-                        </th>
-                        <th scope="col" className=" border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Mobile Number
-                        </th>
-                        <th scope="col" className="border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Organisation
-                        </th>
-                        <th scope="col" className="border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Job Title
-                        </th>
-                        <th scope="col" className="border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Last Login
-                        </th>
-                        <th scope="col" className="border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Actions
-                        </th>
-                    </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                    {activeUsersData.map((user, index) => (
-                        <tr key={index}>
-                            <td className="px-3 border py-2 whitespace-nowrap">
-                                {user.name}
-                            </td>
-                            <td className="border px-3 py-2 whitespace-nowrap">
-                                <span className='text-blue-500 underline cursor-pointer'>{user.userName}</span>
-                            </td>
-                            <td className="border px-3 py-2 whitespace-wrap">
-                                {user.email}
-                            </td>
-                            <td className="border px-3 py-2 whitespace-wrap">
-                                {user.mobileNum}
-                            </td>
-                            {user.organisation?(
-                            <td className="border px-3 py-2 whitespace-wrap">
-                                {user.organisation}
-                            </td>
-                            ):(
-                            <td className="border px-3 py-2 whitespace-wrap">
-                                N/A
-                            </td>
-                            )}
-                            {user.jobTitle?(
-                            <td className="border px-3 py-2 whitespace-wrap">
-                                {user.jobTitle}
-                            </td>
-                            ):(
-                            <td className="border px-3 py-2 whitespace-wrap">
-                                N/A
-                            </td>
-                            )}
-                            <td className="border px-3 py-2 whitespace-wrap">
-                                {user.lastLogin}
-                            </td>
-                            <td className=" flex px-3 py-2 flex-col">
-                                <button className='bg-green-400 hover:bg-green-600 cursor-pointer text-white font-bold rounded mb-2 text-sm'>Manage Useer</button>
-                                <button className='bg-red-400 hover:bg-red-600 cursor-pointer text-white font-bold rounded text-sm'>Remove User</button>
-                            </td>
+        <div className='flex w-full h-full'>
+            <div className={`${sidebar} fixed`}>
+                <Sidebar sideBardClosed={handlesideBarClosed}/>
+            </div>
+            <div className={`flex-1 ${main} h-full w-full p-4 overflow-y-auto mt-10`}>
+                <div className='flex justify-between mb-5'>
+                <div className='flex'>
+                        <Link
+                            className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/pending-aprovals' ? 'font-bold underline' : ''}`}
+                            to='/pending-aprovals'
+                        >
+                            Pending Approvals
+                        </Link>
+                        <Link
+                            className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/active-users' ? 'font-bold underline' : ''}`}
+                            to='/active-users'
+                        >
+                            Active Users
+                        </Link>
+                    </div>
+                    <div >
+                        <input
+                            type="text"
+                            value={searchInput}
+                            onChange={handleSearchChange}
+                            placeholder="Search..."
+                            className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                        />
+                        {searchInput && (
+                            <button
+                                className="absolute top-0 right-0 mt-1 mr-1"
+                                onClick={() => setSearchInput('')}
+                            >
+                                <XCircleIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
+                            </button>
+                        )}
+                    </div>
+                   
+                </div>
+                <table className="min-w-full divide-y divide-gray-200 p-2">
+                    <thead className="bg-gray-50 border">
+                        <tr>
+                            <th scope="col" className="px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                S.No
+                            </th>
+                            <th scope="col" className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                Name
+                            </th>
+                            <th scope="col" className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                Username
+                            </th>
+                            <th scope="col" className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                Email
+                            </th>
+                            <th scope="col" className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                Mobile Number
+                            </th>
+                            <th scope="col" className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                Organisation
+                            </th>
+                            <th scope="col" className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                Job Title
+                            </th>
+                            <th scope="col" className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                Role
+                            </th>
+                            <th scope="col" className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                Last Login
+                            </th>
+                            <th scope="col" className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
+                                Actions
+                            </th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {filteredUsers.map((user, index) => (
+                            <tr key={index}>
+                                <td className="px-1 py-2 text-center border">{index+1}</td>
+                                <td className="px-3 py-2 text-center border">{user.name}</td>
+                                <td className="px-3 py-2 text-center border">
+                                    <Link to='/user'><span className='text-blue-500 underline cursor-pointer'>{user.userName}</span></Link>
+                                </td>
+                                <td className="px-3 py-2 text-center border">{user.email}</td>
+                                <td className="px-3 py-2 text-center border">{user.mobileNum}</td>
+                                <td className="px-3 py-2 text-center border">{user.organisation ? user.organisation : 'N/A'}</td>
+                                <td className="px-3 py-2 text-center border">{user.jobTitle ? user.jobTitle : 'N/A'}</td>
+                                <td className="px-3 py-2 text-center border">{user.role}</td>
+                                <td className="px-3 py-2 text-center border">{user.lastLogin}</td>
+                                <td className="px-3 py-2 text-center border">
+                                    <button className='bg-green-400 hover:bg-green-600 cursor-pointer text-white font-bold rounded mb-2 text-sm p-1'>Manage</button>
+                                    <button className='bg-red-300 hover:bg-red-600 cursor-pointer text-white font-bold rounded text-sm p-1'>Remove</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

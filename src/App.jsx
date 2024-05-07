@@ -12,6 +12,8 @@ import TalkEase from './Pages/TalkEase';
 import Convert from './Pages/Convert';
 import ActiveUserData from './Pages/ActiveUserData';
 import MoreOptions from './Components/UserComponents/MoreOptions';
+import PendingAprovals from './Pages/PendingAprovals';
+import UserDataPage from './Pages/UserDataPage';
 
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/talk-ease' element={<Protected> <TalkEase/> </Protected>}/>
           <Route path='/active-users' element={<Protected> <ActiveUserData/> </Protected>}/>
+          <Route path='/pending-aprovals' element={<Protected> <PendingAprovals/> </Protected>}/>
+          <Route path='/user' element={<Protected> <UserDataPage/> </Protected>}/>
           <Route path='*' element={<PageNotFound/>} />
         </Routes>
       </BrowserRouter>
