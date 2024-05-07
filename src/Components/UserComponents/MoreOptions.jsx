@@ -52,7 +52,7 @@ function MoreOptions() {
                                 key={index}
                                 className={`block w-full px-4 py-2 text-sm ${option.icon===PowerIcon?'text-red-400 hover:bg-red-900 hover:text-white':'text-gray-700 hover:bg-gray-100'}  hover:text-gray-900`}
                                 role="menuitem"
-                                onClick={option.label==='Sign Out'?handleSignout:''}
+                                onClick={option.icon===PowerIcon?handleSignout:''}
                             >
                                 <div className="flex items-center">
                                     <option.icon className="w-4 h-4 mr-2" />
