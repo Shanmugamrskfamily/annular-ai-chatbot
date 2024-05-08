@@ -8,32 +8,21 @@ import {
 } from "@material-tailwind/react";
 import {
   XMarkIcon,
-  BarsArrowDownIcon,
   PlusIcon,
   EllipsisHorizontalIcon
 } from "@heroicons/react/24/solid";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { adminMainMenu, adminSubMenu, userMainMenu, userSubMenu } from "../../Redux/Slicers/SidebarSlice";
  
 export function Sidebar(props) {
-  let location=useLocation();
   
-  const [showSidebar, setShowSidebar] = useState('block');
-  const [showBars, setShowBars] = useState('hidden');
-
-  const handleBars = () => {
-    setShowBars('hidden');
-    setShowSidebar('block');
-    props.sideBardClosed(false);
-  }
 
   const handleShowSidebar = () => {
-    setShowSidebar('hidden');
-    setShowBars('block');
     props.sideBardClosed(true);
   }
+
   let menuMainItems = useSelector(state => state.sidebarItems.menuMainOptions);
   let menuSubItems = useSelector(state => state.sidebarItems.menuSubOptions);
   
@@ -54,14 +43,12 @@ export function Sidebar(props) {
 
   return (
     <>
-          <div className="container w-full h-full shadow-md">
-          <BarsArrowDownIcon className={`h-8 w-8 cursor-pointer top-0 left-0 ${showBars}`} onClick={handleBars} /> 
-          <XMarkIcon className={`h-8 w-8 cursor-pointer relative top-5 left-60 ${showSidebar}`} onClick={handleShowSidebar} />
-          <div className={`mb-2 flex p-2 justify-center ${showSidebar}`}>
+        <div className="w-full h-full shadow-md">
+          <div className='mb-2 h-[14%] flex p-1 justify-center'>
               <img src="./images/logo.png" alt="brand" className="h-30 w-40" />
+              <XMarkIcon className='h-8 w-8 cursor-pointer ml-8' onClick={handleShowSidebar} />
           </div>
-          <Card className={` h-[43%] overflow-y-auto p-2 shadow-xl shadow-blue-gray-900/5 ${showSidebar} dark:bg-black dark:text-white`}>
-            <div className="overflow-y-auto">
+          <Card className={` h-[42%] w-full overflow-y-auto p-2 shadow-xl shadow-blue-gray-900/5 dark:bg-black dark:text-white`}>
             <List>
               {menuMainItems ? menuMainItems.map((item, i) => (
                 <Link key={i} to={item[1]}>
@@ -74,9 +61,8 @@ export function Sidebar(props) {
               )) : null}
             </List>
             <hr className="my-2 border-blue-gray-50"/>
-            </div>
             </Card>
-            <Card className={`overflow-y-auto h-[55%] p-1 shadow-xl shadow-blue-gray-900/5 ${showSidebar} dark:bg-black dark:text-white`}>
+            <Card className={`overflow-y-auto h-[44%] w-full p-1 shadow-xl shadow-blue-gray-900/5 dark:bg-black dark:text-white`}>
             <List>
             <ListItem className="dark:text-white">
                 New Chat
@@ -97,7 +83,7 @@ export function Sidebar(props) {
               )) : null}
             </List>
             </Card>
-            </div>
-            </>
+          </div>
+          </>
   );
 }

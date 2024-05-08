@@ -2,25 +2,27 @@ import React, { useEffect, useState } from 'react';
 import { Sidebar } from '../Components/UserComponents/Sidebar';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeftIcon } from "@heroicons/react/24/solid";
+import { ArrowLeftIcon,BarsArrowDownIcon } from "@heroicons/react/24/solid";
 import { toast } from 'react-toastify';
+import MoreOptions from '../Components/UserComponents/MoreOptions';
 
 function UserDataPage() {
     const userData = useSelector(state => state.adminControlls.userLog);
-    const [main, setMain] = useState('ml-[19rem]');
-    const [sidebar, setSidebar] = useState('w-[18%] h-full');
+    let [sidebar,setSidebar]=useState('block');
+    let [showSide,setShowSide]=useState('hidden');
     const navigate=useNavigate();
     
-    const handlesideBarClosed = () => {
-        setMain(main === 'ml-[19rem]' ? 'ml-[3rem]' : 'ml-[19rem]');
-        setSidebar(sidebar === 'w-[18%] h-full' ? '' : 'w-[18%] h-full');
-    }
+    const handlesideBarClosed=()=>{
+        setSidebar(sidebar==='block'?'hidden':'block');
+        setShowSide(showSide==='block'?'hidden':'block');
+      }
 
     // Function to calculate total session duration
     const calculateTotalSessionDuration = (sessions) => {
         return sessions.reduce((total, session) => {
             const [hours, minutes, seconds] = session.sessionDuration.split(':').map(Number);
-            return total + (hours * 3600) + (minutes * 60) + seconds;
+            const sessionSeconds = hours * 3600 + minutes * 60 + seconds;
+            return total + sessionSeconds;
         }, 0);
     };
 
@@ -33,11 +35,14 @@ function UserDataPage() {
     },[])
 
     return (
-        <div className='flex w-full h-full'>
-            <div className={`${sidebar} fixed`}>
-                <Sidebar sideBardClosed={handlesideBarClosed} />
+        <div className='flex w-screen h-screen'>
+            <BarsArrowDownIcon className={`h-8 w-8 cursor-pointer top-0 left-0 ${showSide}`} onClick={handlesideBarClosed} /> 
+            <div className={`${sidebar} w-[18%] h-full`}>
+                <Sidebar sideBardClosed={handlesideBarClosed}/>
             </div>
-            <div className={`flex-1 ${main} h-full w-full p-4 overflow-y-auto mt-10`}>
+            <div className='flex-1 h-full w-[82%] p-4'>
+            <MoreOptions/>
+                <div className='h-full w-[100%] mt-10 p-2 overflow-y-auto'>
                 {userData.map((user, index) => (
                     <div key={index} className="bg-white rounded-lg shadow-md p-6 mb-6">
                         <div className='flex justify-between'>
@@ -65,8 +70,9 @@ function UserDataPage() {
                             <p className='font-bold mt-6 mb-4'>Total Session Duration: {new Date(calculateTotalSessionDuration(user.sessonDetails) * 1000).toISOString().substr(11, 8)}</p>
                         </div>
                         <table className="w-full border-collapse">
-                            <thead>
+                            <thead className='bg-gray-50 border'>
                                 <tr>
+                                    <th className="border px-1 py-2">S.No</th>
                                     <th className="border px-4 py-2">Start</th>
                                     <th className="border px-4 py-2">End</th>
                                     <th className="border px-4 py-2">Session Duration</th>
@@ -75,6 +81,7 @@ function UserDataPage() {
                             <tbody>
                                 {user.sessonDetails.map((session, idx) => (
                                     <tr key={idx}>
+                                        <td className="border px-1 py-2 text-center">{idx+1}</td>
                                         <td className="border px-4 py-2">{session.start}</td>
                                         <td className="border px-4 py-2">{session.end}</td>
                                         <td className="border px-4 py-2">{session.sessionDuration}</td>
@@ -85,6 +92,7 @@ function UserDataPage() {
                     </div>
                 ))}
             </div>
+        </div>
         </div>
     );
 }

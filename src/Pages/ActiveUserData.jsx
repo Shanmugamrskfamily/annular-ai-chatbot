@@ -2,19 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../Redux/Slicers/AdminSlice';
 import { Sidebar } from '../Components/UserComponents/Sidebar';
-import { XCircleIcon } from "@heroicons/react/24/solid";
+import { XCircleIcon,BarsArrowDownIcon } from "@heroicons/react/24/solid";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import MoreOptions from '../Components/UserComponents/MoreOptions';
 
 function ActiveUserData() {
     const activeUsersData = useSelector(state => state.adminControlls.activeUsersData);
     const dispatch = useDispatch();
     const [searchInput, setSearchInput] = useState('');
     const [filteredUsers, setFilteredUsers] = useState([]);
-    let [main, setMain] = useState('ml-[19rem]');
-    let [sidebar,setSidebar]=useState('w-[18%] h-full')
     let location = useLocation();
     const navigate=useNavigate();
+    let [sidebar,setSidebar]=useState('block');
+    let [showSide,setShowSide]=useState('hidden');
     
     useEffect(() => {
         const userRole = localStorage.getItem('userRole');
@@ -34,10 +35,10 @@ function ActiveUserData() {
         setFilteredUsers(filtered);
     }, [searchInput, activeUsersData]);
 
-    const handlesideBarClosed = () => {
-        setMain(main === 'ml-[19rem]' ? 'ml-[3rem]' : 'ml-[19rem]');
-        setSidebar(sidebar==='w-[18%] h-full'?'':'w-[18%] h-full')
-    }
+    const handlesideBarClosed=()=>{
+        setSidebar(sidebar==='block'?'hidden':'block');
+        setShowSide(showSide==='block'?'hidden':'block');
+      }
 
     const handleSearchChange = (e) => {
         setSearchInput(e.target.value);
@@ -52,13 +53,16 @@ function ActiveUserData() {
     },[])
 
     return (
-        <div className='flex w-full h-full'>
-            <div className={`${sidebar} fixed`}>
+        <div className='flex w-screen h-screen'>
+            <BarsArrowDownIcon className={`h-8 w-8 cursor-pointer top-0 left-0 ${showSide}`} onClick={handlesideBarClosed} /> 
+            <div className={`${sidebar} w-[18%] h-full`}>
                 <Sidebar sideBardClosed={handlesideBarClosed}/>
             </div>
-            <div className={`flex-1 ${main} h-full w-full p-4 overflow-y-auto mt-10`}>
-                <div className='flex justify-between mb-5'>
-                <div className='flex'>
+            <div className='flex-1 h-full w-[82%] p-4 overflow-y-auto'>
+            <MoreOptions/>
+                <div className='h-full w-[100%] justify-between mt-10'>
+                    <div className='flex justify-between mb-5'>
+                        <div className='flex'>
                         <Link
                             className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/pending-aprovals' ? 'font-bold underline' : ''}`}
                             to='/pending-aprovals'
@@ -89,7 +93,6 @@ function ActiveUserData() {
                             </button>
                         )}
                     </div>
-                   
                 </div>
                 <table className="min-w-full divide-y divide-gray-200 p-2">
                     <thead className="bg-gray-50 border">
@@ -149,6 +152,7 @@ function ActiveUserData() {
                     </tbody>
                 </table>
             </div>
+        </div>
         </div>
     );
 }

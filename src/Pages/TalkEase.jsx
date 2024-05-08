@@ -1,50 +1,53 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState,useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTalkEaseConversation } from '../Redux/Slicers/ConversationSlice';
 import { Sidebar } from '../Components/UserComponents/Sidebar';
 import PromptComponent from '../Components/ChatComponents/PromptComponent';
+import {BarsArrowDownIcon} from "@heroicons/react/24/solid";
+import MoreOptions from '../Components/UserComponents/MoreOptions';
 
 function TalkEase() {
   const conversations = useSelector(state => state.conversations.talkEaseConversation);
   const dispatch = useDispatch();
-  let [prompt,setPrompt]=useState('w-3/4 right-2');
-  let [main,setMain]=useState('ml-[19rem]');
-  let [sidebar,setSidebar]=useState('w-[18%] h-full')
+  let [sidebar,setSidebar]=useState('block');
+  let [showSide,setShowSide]=useState('hidden');
+  const conversationContainerRef = useRef(null);
 
-  
-  // Ref for scrolling to bottom
-  const messagesEndRef = useRef(null);
+  const handleSubmit = (inputValue) => {
+    dispatch(addTalkEaseConversation(inputValue));
+    scrollToBottom();
+  };
+
+  const handlesideBarClosed=()=>{
+    setSidebar(sidebar==='block'?'hidden':'block');
+    setShowSide(showSide==='block'?'hidden':'block');
+  }
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (conversationContainerRef.current) {
+      conversationContainerRef.current.scrollTop = conversationContainerRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
     scrollToBottom();
-  }, [conversations]);
-
-  const handleSubmit = (inputValue) => {
-    dispatch(addTalkEaseConversation(inputValue));
-  };
-
-  const handlesideBarClosed=()=>{
-    setPrompt(prompt==='w-3/4 right-2'?'w-11/12 right-10':'w-3/4 right-2');
-    setMain(main==='ml-[19rem]'?'ml-[3rem]':'ml-[19rem]');
-    setSidebar(sidebar==='w-[18%] h-full'?'':'w-[18%] h-full')
-  }
+  }, [conversations]); 
 
   return (
-    <div className='flex w-full h-full'>
-      <div className={`${sidebar} fixed`}>
+    <div className='flex w-screen h-screen'>
+      <BarsArrowDownIcon className={`h-8 w-8 cursor-pointer top-0 left-0 ${showSide}`} onClick={handlesideBarClosed} /> 
+      <div className={`${sidebar} w-[18%] h-full`}>
         <Sidebar sideBardClosed={handlesideBarClosed}/>
       </div>
-      <div className={`flex-1 ${main} right- h-full w-[100%] p-10`}>
-        <div className='h-[90%] w-full justify-between overflow-y-auto'>
-          <h1 className='text-3xl font-bold'>Annular AI</h1>
-          <h1 className="font-bold text-lg">TalkEase Conversation</h1>
-          <div className="w-full mx-auto bg-white rounded-lg overflow-hidden mb-32">
-            <div className="px-4 py-2">
-              {conversations && conversations.map((conversation, i) => (
+      <div className='flex-1 h-full w-[82%] p-2'>
+        <MoreOptions/>
+        <div className='h-full w-[100%] justify-between'>
+        <div className="w-full h-[87%] overflow-y-auto p-10" style={{ scrollBehavior: 'smooth' }} ref={conversationContainerRef}>
+            <h1 className='text-3xl font-bold'>Annular AI</h1>
+            <h1 className="font-bold text-lg">TalkEase Conversation</h1>
+            <div className="w-full mx-auto bg-white rounded-lg overflow-hidden">
+              <div className="px-4 py-2">
+                {conversations && conversations.map((conversation, i) => (
                 <div key={i}>
                   {conversation.user && conversation.user.map((user, index) => (
                     <div key={index} className="flex">
@@ -61,15 +64,15 @@ function TalkEase() {
                     </div>
                   ))}
                 </div>
-              ))}
-              <div ref={messagesEndRef} />
+                  ))}
+              </div>
             </div>
           </div>
+          <div className='w-full h-[13%] items-center justify-center p-2'>
+            <PromptComponent onSubmit={handleSubmit}/>
+            <p className='text-center mt-2'>Annular Chat AI ©Annular Technologies</p>
+          </div>
         </div>
-      </div>
-      <div className={`fixed bottom-0 items-center justify-center ${prompt}`}>
-        <PromptComponent onSubmit={handleSubmit}/>
-        <p className='text-center  mb-2 mt-2'>Annular Chat AI ©Annular Technologies</p>
       </div>
     </div>
   );

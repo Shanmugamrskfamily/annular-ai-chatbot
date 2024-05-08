@@ -3,18 +3,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPendingUsers } from '../Redux/Slicers/AdminSlice';
 import { Sidebar } from '../Components/UserComponents/Sidebar';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { XCircleIcon } from "@heroicons/react/24/solid";
+import { XCircleIcon,BarsArrowDownIcon } from "@heroicons/react/24/solid";
 import { toast } from 'react-toastify';
+import MoreOptions from '../Components/UserComponents/MoreOptions';
 
 function PendingAprovals() {
     const pendingUsersData = useSelector(state => state.adminControlls.pendingUsers);
     const dispatch = useDispatch();
     const [searchInput, setSearchInput] = useState('');
     const [filteredUsers, setFilteredUsers] = useState([]);
-    let [main,setMain]=useState('ml-[19rem]');
-    let [sidebar,setSidebar]=useState('w-[18%] h-full')
+    let [sidebar,setSidebar]=useState('block');
+    let [showSide,setShowSide]=useState('hidden');
     let location=useLocation();
     const navigate=useNavigate();
+
+    const handlesideBarClosed=()=>{
+        setSidebar(sidebar==='block'?'hidden':'block');
+        setShowSide(showSide==='block'?'hidden':'block');
+      }
     
     useEffect(() => {
         const userRole = localStorage.getItem('userRole');
@@ -38,56 +44,54 @@ function PendingAprovals() {
       setFilteredUsers(filtered);
   }, [searchInput, pendingUsersData]);
 
-    const handlesideBarClosed=()=>{
-        setMain(main==='ml-[19rem]'?'ml-[3rem]':'ml-[19rem]');
-        setSidebar(sidebar==='w-[18%] h-full'?'':'w-[18%] h-full')
-    }
-
     const handleSearchChange = (e) => {
       setSearchInput(e.target.value);
   };
     
     return (
-        <div className='flex w-full h-full'>
-            <div className={`${sidebar} fixed`}>
+        <div className='flex w-screen h-screen'>
+            <BarsArrowDownIcon className={`h-8 w-8 cursor-pointer top-0 left-0 ${showSide}`} onClick={handlesideBarClosed} /> 
+            <div className={`${sidebar} w-[18%] h-full`}>
                 <Sidebar sideBardClosed={handlesideBarClosed}/>
             </div>
-        <div className={`flex-1 ${main} h-full w-full p-4 overflow-y-auto mt-10`}>
-        <div className='flex justify-between mb-5'>
-                <div className='flex'>
-                    <Link
-                        className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/pending-aprovals' ? 'font-bold underline' : ''}`}
-                        to='/pending-aprovals'
-                    >
-                        Pending Approvals
-                    </Link>
-                    <Link
-                        className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/active-users' ? 'font-bold underline' : ''}`}
-                        to='/active-users'
-                    >
-                        Active Users
-                    </Link>
-                  </div>
-                  <div >
-                        <input
-                            type="text"
-                            value={searchInput}
-                            onChange={handleSearchChange}
-                            placeholder="Search..."
-                            className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        />
-                        {searchInput && (
+            <div className='flex-1 h-full w-[82%] p-4 overflow-y-auto'>
+            <MoreOptions/>
+                <div className='h-full w-[100%] justify-between mt-10'>
+                    <div className='flex justify-between mb-5'>
+                        <div className='flex'>
+                            <Link
+                                className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/pending-aprovals' ? 'font-bold underline' : ''}`}
+                                to='/pending-aprovals'
+                                >
+                                    Pending Approvals
+                            </Link>
+                            <Link
+                                className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/active-users' ? 'font-bold underline' : ''}`}
+                                to='/active-users'
+                                >
+                                    Active Users
+                            </Link>
+                        </div>
+                        <div>
+                            <input
+                                type="text"
+                                value={searchInput}
+                                onChange={handleSearchChange}
+                                placeholder="Search..."
+                                className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                            />
+                            {searchInput && (
                             <button
-                                className="absolute top-0 right-0 mt-1 mr-1"
+                                className=""
                                 onClick={() => setSearchInput('')}
                             >
-                                <XCircleIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
+                            <XCircleIcon className="h-5 w-5 text-red-500 cursor-pointer" />
                             </button>
-                        )}
+                            )}
+                        </div>
                     </div>
-                </div>
-            <table className="min-w-full divide-y divide-gray-200 p-2">
-                <thead className="bg-gray-50 border">
+                    <table className="min-w-full divide-y divide-gray-200 p-2">
+                    <thead className="bg-gray-50 border">
                     <tr>
                         <th scope="col" className="px-1 border py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                             S.No
@@ -166,6 +170,7 @@ function PendingAprovals() {
                 </tbody>
             </table>
         </div>
+    </div>
     </div>
     );
 }

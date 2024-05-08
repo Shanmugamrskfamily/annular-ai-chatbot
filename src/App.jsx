@@ -22,7 +22,6 @@ function App() {
       <BrowserRouter>
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition: Bounce/>
       <NavbarMain/>
-      <MoreOptions/>
         <Routes>
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
