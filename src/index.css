@@ -117,20 +117,3 @@ select {
   border: 1px solid black;
 }
 
-.prompt {
-  position: fixed;
-  bottom: 0;
-  background: #fff;
-}
-.talkEase-container {
-  height: 100vh;
-  width: 60%;
-}
-.sidebar-main-container {
-  height: 37vh;
-  width: 35vh;
-}
-.sidebar-sub-container {
-  height: 35%;
-  width: 95%;
-}

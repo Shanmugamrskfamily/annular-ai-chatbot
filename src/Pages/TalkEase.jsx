@@ -69,7 +69,7 @@ function TalkEase() {
             </div>
           </div>
           <div className='w-full h-[13%] items-center justify-center p-2'>
-            <PromptComponent onSubmit={handleSubmit}/>
+            <PromptComponent onSubmit={handleSubmit} placeholder='Type Here...' isAttachment={true}/>
             <p className='text-center mt-2'>Annular Chat AI ©Annular Technologies</p>
           </div>
         </div>

@@ -4,7 +4,7 @@ import pdfToText from 'react-pdftotext'
 import mammoth from 'mammoth';
 import * as XLSX from 'xlsx';
 
-const PromptComponent = ({ onSubmit }) => {
+const PromptComponent = (props) => {
   const [inputValue, setInputValue] = useState('');
   const [fileContent, setFileContent] = useState('');
 
@@ -24,13 +24,13 @@ const PromptComponent = ({ onSubmit }) => {
         reader.onload = (event) => {
             const value = event.target.result;
             console.log('File Content:', value);
-            onSubmit({ user: value });
+            props.onSubmit({ user: value });
         };
         reader.readAsText(file);
     } else if (fileFormat === 'pdf') {
         try {
             const text = await pdfToText(file);
-            onSubmit({ user: text });
+            props.onSubmit({ user: text });
         } catch (error) {
             console.error("Failed to extract text from pdf:", error);
         }
@@ -41,7 +41,7 @@ const PromptComponent = ({ onSubmit }) => {
             try {
                 const result = await mammoth.extractRawText({ arrayBuffer });
                 const text = result.value;
-                onSubmit({ user: text });
+                props.onSubmit({ user: text });
             } catch (error) {
                 console.error('Error reading docx file:', error);
             }
@@ -57,7 +57,7 @@ const PromptComponent = ({ onSubmit }) => {
           const sheet = workbook.Sheets[sheetName];
           const excelContent = XLSX.utils.sheet_to_json(sheet, { header: 1 });
           console.log('Excel Content:', excelContent);
-          onSubmit({ user: excelContent });
+          props.onSubmit({ user: excelContent });
       };
       reader.readAsArrayBuffer(file);
   }
@@ -68,24 +68,25 @@ const PromptComponent = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (fileContent) {
-      onSubmit({ user: fileContent });
+      props.onSubmit({ user: fileContent });
       setFileContent('');
     } else {
-      onSubmit({ user: inputValue });
+      props.onSubmit({ user: inputValue });
       setInputValue('');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center w-full space-x-2">
+    <form onSubmit={handleSubmit} className="flex items-center w-full">
       <textarea
         type="text"
         value={inputValue}
         onChange={handleChange}
-        placeholder="Type here..."
+        placeholder={props.placeholder}
         className="flex-1 px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
       />
-      <label htmlFor="file-upload" className="cursor-pointer">
+      {props.isAttachment&&(
+        <label htmlFor="file-upload" className="cursor-pointer">
         <PaperClipIcon className="h-6 w-6 text-black" />
         <input
           id="file-upload"
@@ -95,6 +96,8 @@ const PromptComponent = ({ onSubmit }) => {
           onChange={handleFileChange}
         />
       </label>
+      )
+      }
       <button type="submit" className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
         Submit
       </button>

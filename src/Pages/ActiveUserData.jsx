@@ -13,9 +13,10 @@ function ActiveUserData() {
     const [searchInput, setSearchInput] = useState('');
     const [filteredUsers, setFilteredUsers] = useState([]);
     let location = useLocation();
-    const navigate=useNavigate();
+
     let [sidebar,setSidebar]=useState('block');
     let [showSide,setShowSide]=useState('hidden');
+    const navigate=useNavigate();
     
     useEffect(() => {
         const userRole = localStorage.getItem('userRole');
@@ -51,6 +52,9 @@ function ActiveUserData() {
             navigate('/talk-ease');
         }
     },[])
+    const handleManage=()=>{
+        navigate('/user');
+    }
 
     return (
         <div className='flex w-screen h-screen'>
@@ -59,33 +63,34 @@ function ActiveUserData() {
                 <Sidebar sideBardClosed={handlesideBarClosed}/>
             </div>
             <div className='flex-1 h-full w-[82%] p-4 overflow-y-auto'>
-            <MoreOptions/>
+                <MoreOptions/>
                 <div className='h-full w-[100%] justify-between mt-10'>
-                    <div className='flex justify-between mb-5'>
-                        <div className='flex'>
-                        <Link
-                            className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/pending-aprovals' ? 'font-bold underline' : ''}`}
-                            to='/pending-aprovals'
-                        >
-                            Pending Approvals
-                        </Link>
-                        <Link
-                            className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/active-users' ? 'font-bold underline' : ''}`}
-                            to='/active-users'
-                        >
-                            Active Users
-                        </Link>
-                    </div>
-                    <div >
-                        <input
-                            type="text"
-                            value={searchInput}
-                            onChange={handleSearchChange}
-                            placeholder="Search..."
-                            className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                        />
-                        {searchInput && (
-                            <button
+                    <div className='w-full h-[10%]'>
+                        <div className='flex justify-between mb-5'>
+                            <div className='flex'>
+                                <Link
+                                    className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/pending-aprovals' ? 'font-bold underline' : ''}`}
+                                    to='/pending-aprovals'
+                                >
+                                    Pending Approvals
+                                </Link>
+                                <Link
+                                    className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/active-users' ? 'font-bold underline' : ''}`}
+                                    to='/active-users'
+                                >
+                                    Active Users
+                                </Link>
+                            </div>
+                        <div>
+                            <input
+                                type="text"
+                                value={searchInput}
+                                onChange={handleSearchChange}
+                                placeholder="Search..."
+                                className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                            />
+                            {searchInput && (
+                                <button
                                 className="absolute top-0 right-0 mt-1 mr-1"
                                 onClick={() => setSearchInput('')}
                             >
@@ -93,9 +98,11 @@ function ActiveUserData() {
                             </button>
                         )}
                     </div>
-                </div>
-                <table className="min-w-full divide-y divide-gray-200 p-2">
-                    <thead className="bg-gray-50 border">
+                        </div>
+                        </div>
+                        <div className='w-full h-[90%] overflow-y-auto'>
+                                <table className="min-w-full divide-y divide-gray-200 p-2">
+                                    <thead className="bg-gray-50 border sticky top-0">
                         <tr>
                             <th scope="col" className="px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border">
                                 S.No
@@ -144,15 +151,16 @@ function ActiveUserData() {
                                 <td className="px-3 py-2 text-center border">{user.role}</td>
                                 <td className="px-3 py-2 text-center border">{user.lastLogin}</td>
                                 <td className="px-3 py-2 text-center border">
-                                    <button className='bg-green-400 hover:bg-green-600 cursor-pointer text-white font-bold rounded mb-2 text-sm p-1'>Manage</button>
+                                    <button className='bg-green-400 hover:bg-green-600 cursor-pointer text-white font-bold rounded mb-2 text-sm p-1' onClick={handleManage}>Manage</button>
                                     <button className='bg-red-300 hover:bg-red-600 cursor-pointer text-white font-bold rounded text-sm p-1'>Remove</button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                                </table>      
+                            </div>
+                    </div>
             </div>
-        </div>
         </div>
     );
 }
