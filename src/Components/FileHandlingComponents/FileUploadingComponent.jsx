@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { CloudArrowUpIcon } from "@heroicons/react/24/solid";
+import { CloudArrowUpIcon,ArrowLeftIcon, ArrowRightIcon,ChevronRightIcon, ChevronLeftIcon  } from "@heroicons/react/24/solid";
 
 const FileUploadingComponent = (props) => {
     
     const [selectedFiles, setSelectedFiles] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
     const pageSize = 3;
   
     const handleFileChange = (event) => {
@@ -41,9 +41,9 @@ const FileUploadingComponent = (props) => {
     return (
       <div className="w-full mx-auto" onDragOver={handleDragOver} onDrop={handleDrop}>
         <div className="flex w-full items-center justify-between border-b border-gray-300 mb-4 pb-2 gap-2">
-          <div className='w-[90%]'>
+          <div className='w-[90%] justify-center'>
             <label htmlFor="fileInput" className="cursor-pointer">
-              <div className="border w-full border-dashed border-gray-400 rounded-lg p-4 flex">
+              <div className="border w-full border-dashed border-gray-400 rounded-lg p-4 flex justify-center items-center">
                 <span className='w-full text-2xl'><CloudArrowUpIcon className="h-12 w-12 text-gray-500" />Drag and drop files here</span>
                 <input
                   type="file"
@@ -75,28 +75,32 @@ const FileUploadingComponent = (props) => {
             </div>
           ))}
         </div>
-        <div className="flex justify-between mt-4">
+        <div className="flex w-full justify-between mt-4">
+        <div>
+            <p className="text-sm text-gray-500">
+                Showing page {currentPage} of {totalPages}
+            </p>
+        </div>
+        <div>
           <button
-            className={`text-sm ${currentPage === 1 ? 'text-gray-400' : 'text-blue-500'} ${
+            className={`text-sm mr-2 text-white ${currentPage === 1 ? ' bg-gray-400' : ' bg-green-700'} ${
               currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer'
             }`}
             onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))}
             disabled={currentPage === 1}
           >
-            Previous
+           <ChevronLeftIcon className='h-6 w-6 text-white' /> 
           </button>
-          <span className="text-sm text-gray-500">
-            Showing page {currentPage} of {totalPages}
-          </span>
           <button
-            className={`text-sm ${currentPage === totalPages ? 'text-gray-400' : 'text-blue-500'} ${
+            className={`text-sm ${currentPage === totalPages ? ' bg-gray-400' : 'bg-green-700'} ${
               currentPage === totalPages ? 'cursor-not-allowed' : 'cursor-pointer'
             }`}
             onClick={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages))}
             disabled={currentPage === totalPages}
           >
-            Next
+            <ChevronRightIcon className='h-6 w-6 text-white' /> 
           </button>
+          </div>
         </div>
       </div>
     );

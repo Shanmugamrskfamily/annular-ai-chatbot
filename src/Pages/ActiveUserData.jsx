@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUsers } from '../Redux/Slicers/AdminSlice';
 import { Sidebar } from '../Components/UserComponents/Sidebar';
-import { XCircleIcon,BarsArrowDownIcon } from "@heroicons/react/24/solid";
+import { XCircleIcon,BarsArrowDownIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MoreOptions from '../Components/UserComponents/MoreOptions';
@@ -64,7 +64,7 @@ function ActiveUserData() {
             </div>
             <div className='flex-1 h-full w-[82%] p-4 overflow-y-auto'>
                 <MoreOptions/>
-                <div className='h-full w-[100%] justify-between mt-10'>
+                <div className='h-full w-[100%] justify-between mt-5'>
                     <div className='w-full h-[10%]'>
                         <div className='flex justify-between mb-5'>
                             <div className='flex'>
@@ -81,23 +81,26 @@ function ActiveUserData() {
                                     Active Users
                                 </Link>
                             </div>
-                        <div>
-                            <input
-                                type="text"
-                                value={searchInput}
-                                onChange={handleSearchChange}
-                                placeholder="Search..."
-                                className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                            />
-                            {searchInput && (
-                                <button
-                                className="absolute top-0 right-0 mt-1 mr-1"
-                                onClick={() => setSearchInput('')}
-                            >
-                                <XCircleIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
-                            </button>
-                        )}
-                    </div>
+                                <div className='flex'>
+                                
+                                    <input
+                                        type="text"
+                                        value={searchInput}
+                                        onChange={handleSearchChange}
+                                        placeholder="Search..."
+                                        className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                                    />
+                                    {searchInput && (
+                                        <button
+                                        className="absolute right-10 top-10 mt-1 mr-1"
+                                        onClick={() => setSearchInput('')}
+                                    >
+                                        <XCircleIcon className="h-5 w-5 text-red-500 cursor-pointer" />
+                                    </button>
+                                )}
+                                    <MagnifyingGlassIcon className="h-6 w-6 mt-1 text-gray-600" />
+                                    
+                            </div>
                         </div>
                         </div>
                         <div className='w-full h-[90%] overflow-y-auto'>
@@ -150,7 +153,7 @@ function ActiveUserData() {
                                 <td className="px-3 py-2 text-center border">{user.jobTitle ? user.jobTitle : 'N/A'}</td>
                                 <td className="px-3 py-2 text-center border">{user.role}</td>
                                 <td className="px-3 py-2 text-center border">{user.lastLogin}</td>
-                                <td className="px-3 py-2 text-center border">
+                                <td className="border flex px-3 py-2 flex-col justify-center items-center gap-1">
                                     <button className='bg-green-400 hover:bg-green-600 cursor-pointer text-white font-bold rounded mb-2 text-sm p-1' onClick={handleManage}>Manage</button>
                                     <button className='bg-red-300 hover:bg-red-600 cursor-pointer text-white font-bold rounded text-sm p-1'>Remove</button>
                                 </td>

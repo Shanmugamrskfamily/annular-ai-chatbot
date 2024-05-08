@@ -77,7 +77,7 @@ const PromptComponent = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center w-full">
+    <form onSubmit={handleSubmit} className="flex items-center w-full gap-1">
       <textarea
         type="text"
         value={inputValue}

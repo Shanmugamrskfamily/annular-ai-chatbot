@@ -46,7 +46,7 @@ export function Sidebar(props) {
         <div className="w-full h-full shadow-md">
           <div className='mb-2 h-[14%] flex p-1 justify-center'>
               <img src="./images/logo.png" alt="brand" className="h-30 w-40" />
-              <XMarkIcon className='h-8 w-8 cursor-pointer ml-8' onClick={handleShowSidebar} />
+              <XMarkIcon className='h-8 w-8 cursor-pointer ml-4 shrink-0' onClick={handleShowSidebar} />
           </div>
           <Card className={` h-[42%] w-full overflow-y-auto p-2 shadow-xl shadow-blue-gray-900/5 dark:bg-black dark:text-white`}>
             <List>

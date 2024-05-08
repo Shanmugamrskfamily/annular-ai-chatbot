@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPendingUsers } from '../Redux/Slicers/AdminSlice';
 import { Sidebar } from '../Components/UserComponents/Sidebar';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { XCircleIcon,BarsArrowDownIcon } from "@heroicons/react/24/solid";
+import { XCircleIcon,BarsArrowDownIcon,MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { toast } from 'react-toastify';
 import MoreOptions from '../Components/UserComponents/MoreOptions';
 
@@ -56,7 +56,7 @@ function PendingAprovals() {
             </div>
             <div className='flex-1 h-full w-[82%] p-4'>
             <MoreOptions/>
-                <div className='h-full w-[100%] justify-between mt-10'>
+                <div className='h-full w-[100%] justify-between mt-5 mb-10'>
                     <div className='w-full h-[10%]'>
                         <div className='flex justify-between mb-5'>
                             <div className='flex'>
@@ -73,23 +73,26 @@ function PendingAprovals() {
                                         Active Users
                                 </Link>
                             </div>
-                            <div>
-                                <input
-                                    type="text"
-                                    value={searchInput}
-                                    onChange={handleSearchChange}
-                                    placeholder="Search..."
-                                    className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
-                                />
-                                {searchInput && (
+                            <div className='flex'>
+                        
+                            <input
+                                type="text"
+                                value={searchInput}
+                                onChange={handleSearchChange}
+                                placeholder="Search..."
+                                className="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                            />
+                            {searchInput && (
                                 <button
-                                    className=""
-                                    onClick={() => setSearchInput('')}
-                                >
+                                className="absolute right-10 top-10 mt-1 mr-1"
+                                onClick={() => setSearchInput('')}
+                            >
                                 <XCircleIcon className="h-5 w-5 text-red-500 cursor-pointer" />
-                                </button>
-                                )}
-                            </div>
+                            </button>
+                        )}
+                            <MagnifyingGlassIcon className="h-6 w-6 mt-1 text-gray-600" />
+                            
+                    </div>
                         </div>
                         </div>
                         <div className='w-full h-[90%] overflow-y-auto'>
@@ -164,8 +167,8 @@ function PendingAprovals() {
                                             <td className="border px-2 py-2 whitespace-wrap">
                                                 {user.requestedOn}
                                             </td>
-                                            <td className="border flex px-3 py-2 flex-col justify-center items-center">
-                                                <button className='bg-green-400 hover:bg-green-600 cursor-pointer text-white font-bold rounded mb-2 text-sm p-1'>Aprove</button>
+                                            <td className="border flex px-3 py-2 flex-col justify-center items-center gap-1">
+                                                <button className='bg-green-400 hover:bg-green-600 cursor-pointer text-white font-bold rounded text-sm p-1'>Aprove</button>
                                                 <button className='bg-red-300 hover:bg-red-600 cursor-pointer text-white font-bold rounded text-sm p-1'>Reject</button>
                                             </td>
                                         </tr>

@@ -8,7 +8,7 @@ const ChatPrompt = ({ onSubmit, placeholder }) => {
   const handleTextareaChange = () => {
     if (textareaRef.current) {
       const lines = textareaRef.current.value.split('\n').length;
-      const lineHeight = 20; // Adjust this value based on your textarea's line height
+      const lineHeight = 20; 
       const newHeight = `${lines * lineHeight}px`;
       textareaRef.current.style.height = newHeight;
     }
@@ -16,7 +16,7 @@ const ChatPrompt = ({ onSubmit, placeholder }) => {
 
   useEffect(() => {
     handleTextareaChange();
-  }, []); // Run once on component mount to set initial height
+  }, []); 
 
   return (
     <div>

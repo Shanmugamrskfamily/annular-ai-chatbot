@@ -39,9 +39,9 @@ function MoreOptions() {
     }
 
     return (
-        <div className="fixed inline-block top-0 right-4 bg-transperant rounded">
+        <div className="fixed inline-block top-0 right-0 bg-transperant rounded">
             <button onClick={toggleMenu} type="button" className="inline-flex justify-center w-10 h-10 text-gray-400 hover:text-gray-600 focus:outline-none focus:text-gray-600">
-            <EllipsisVerticalIcon className="h-8 w-8 text-black" />
+            <EllipsisVerticalIcon className="h-7 w-8 text-black" />
             </button>
             {isOpen && (
                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md  shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">

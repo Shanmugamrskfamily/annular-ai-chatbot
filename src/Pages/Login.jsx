@@ -29,7 +29,7 @@ const Login = () => {
             // Handle login logic here
             console.log('Login form submitted with values:', values);
             localStorage.setItem('token','Hello');
-            localStorage.setItem('userRole','admin');
+            localStorage.setItem('userRole','user');
             setTimeout(() => {
                 localStorage.removeItem('token');
               }, 30*60*1000);
