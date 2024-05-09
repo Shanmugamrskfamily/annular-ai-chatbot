@@ -8,7 +8,7 @@ function PageNotFound() {
             <p className="text-lg">The page you are looking for does not exist</p>
             <p className='text-2xl'>(OR)</p>
             <p className='text-red-600 mb-8'>Your Not Authoraized!</p>
-            <Link to="/login" className="text-blue-500 hover:underline">Go to Login Page</Link>
+            <Link to="/" className="text-blue-500 hover:underline">Go to Login Page</Link>
         </div>
     );
 }

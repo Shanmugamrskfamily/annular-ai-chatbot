@@ -146,7 +146,7 @@ function Signup() {
                 <button type="submit" className="bg-blue-500 m-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Sign Up
                 </button>
-                <p className="text-sm">Already have an account? <Link to={'/login'} className="text-blue-500 underline">Login</Link></p>
+                <p className="text-sm">Already have an account? <Link to={'/'} className="text-blue-500 underline">Login</Link></p>
             </div>
         </form>
     </div>

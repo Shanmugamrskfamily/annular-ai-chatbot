@@ -104,7 +104,7 @@ export function MainHeader() {
  let location=useLocation(); 
   return (
     <>
-    {location.pathname==='/login'||location.pathname==='/signup'?(null):(
+    {location.pathname==='/'||location.pathname==='/signup'?(null):(
       <div className="fixed top-0 right-0  bg-transparent">
         <div className="ml-auto">
           <ProfileMenu />

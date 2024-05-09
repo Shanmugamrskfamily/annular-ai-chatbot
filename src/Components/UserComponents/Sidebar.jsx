@@ -12,7 +12,7 @@ import {
   EllipsisHorizontalIcon
 } from "@heroicons/react/24/solid";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { adminMainMenu, adminSubMenu, userMainMenu, userSubMenu } from "../../Redux/Slicers/SidebarSlice";
  
@@ -25,6 +25,7 @@ export function Sidebar(props) {
 
   let menuMainItems = useSelector(state => state.sidebarItems.menuMainOptions);
   let menuSubItems = useSelector(state => state.sidebarItems.menuSubOptions);
+  let location=useLocation();
   
 
 
@@ -44,9 +45,11 @@ export function Sidebar(props) {
   return (
     <>
         <div className="w-full h-full shadow-md">
-          <div className='mb-2 h-[14%] flex p-1 justify-center'>
+          <div className="h-[2%] flex justify-end">
+              <XMarkIcon className='right-0 h-8 w-8 cursor-pointer ml-4 shrink-0' onClick={handleShowSidebar} />
+          </div>
+          <div className='mb-2 w-full h-[12%] flex p-1 justify-center'>
               <img src="./images/logo.png" alt="brand" className="h-30 w-40" />
-              <XMarkIcon className='h-8 w-8 cursor-pointer ml-4 shrink-0' onClick={handleShowSidebar} />
           </div>
           <Card className={` h-[42%] w-full overflow-y-auto p-2 shadow-xl shadow-blue-gray-900/5 dark:bg-black dark:text-white`}>
             <List>
@@ -63,25 +66,30 @@ export function Sidebar(props) {
             <hr className="my-2 border-blue-gray-50"/>
             </Card>
             <Card className={`overflow-y-auto h-[44%] w-full p-1 shadow-xl shadow-blue-gray-900/5 dark:bg-black dark:text-white`}>
-            <List>
-            <ListItem className="dark:text-white">
-                New Chat
-                  <ListItemSuffix>
-                    <PlusIcon  className="h-6 w-6" />
-                  </ListItemSuffix>
-                </ListItem>
-              </List>
-            <List>
-              {menuSubItems ? menuSubItems.map((item, i) => (
-                <ListItem key={i}>
-                  {item[0]}
-                  <ListItemSuffix>
-                    <EllipsisHorizontalIcon className="h-5 w-5 hover:bg-blue-gray-600 rounded-full dark:hover:bg-white" />
-                  </ListItemSuffix>
-                </ListItem>
-                
-              )) : null}
-            </List>
+            
+              {location.pathname==='/web-search'?(null):(
+                <>
+                <List>
+                <ListItem className="dark:text-white">
+                    New Chat
+                      <ListItemSuffix>
+                        <PlusIcon  className="h-6 w-6" />
+                      </ListItemSuffix>
+                    </ListItem>
+                  </List>
+                <List>
+                  {menuSubItems ? menuSubItems.map((item, i) => (
+                    <ListItem key={i}>
+                      {item[0]}
+                      <ListItemSuffix>
+                        <EllipsisHorizontalIcon className="h-5 w-5 hover:bg-blue-gray-600 rounded-full dark:hover:bg-white" />
+                      </ListItemSuffix>
+                    </ListItem>
+                    
+                  )) : null}
+                </List>
+                </>
+              )}
             </Card>
           </div>
           </>

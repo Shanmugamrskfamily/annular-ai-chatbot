@@ -25,7 +25,6 @@ function PendingAprovals() {
     useEffect(() => {
         const userRole = localStorage.getItem('userRole');
         if(userRole!=='admin'){
-          toast.warn('Your not authorised to view this page!');
           navigate('/talk-ease');
         }
         dispatch(getPendingUsers(userRole));
@@ -55,7 +54,9 @@ function PendingAprovals() {
                 <Sidebar sideBardClosed={handlesideBarClosed}/>
             </div>
             <div className='flex-1 h-full w-[82%] p-4'>
-            <MoreOptions/>
+                
+                    <MoreOptions/>
+                
                 <div className='h-full w-[100%] justify-between mt-5 mb-10'>
                     <div className='w-full h-[10%]'>
                         <div className='flex justify-between mb-5'>
@@ -96,31 +97,34 @@ function PendingAprovals() {
                         </div>
                         </div>
                         <div className='w-full h-[90%] overflow-y-auto'>
-                                <table className="min-w-full divide-y divide-gray-200 p-2">
-                                    <thead className="bg-gray-50 border sticky top-0">
+                                <table className="min-w-full divide-y divide-gray-200 p-2 mb-5">
+                                    <thead className="bg-gray-50 border ">
                                         <tr>
                                             <th scope="col" className="px-1 border py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 S.No
                                             </th>
-                                            <th scope="col" className="px-3 border py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th scope="col" className="px-1 border py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Name
                                             </th>
-                                            <th scope="col" className="px-3 py-2 border text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th scope="col" className="px-1 py-2 border text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Username
                                             </th>
-                                            <th scope="col" className="border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th scope="col" className="border px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Email
                                             </th>
-                                            <th scope="col" className=" border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th scope="col" className="border px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Email Verification
+                                            </th>
+                                            <th scope="col" className=" border px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Mobile Number
                                             </th>
-                                            <th scope="col" className="border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th scope="col" className="border px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Organisation
                                             </th>
-                                            <th scope="col" className="border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th scope="col" className="border px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Job Title
                                             </th>
-                                            <th scope="col" className="border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            <th scope="col" className="border px-1 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Requested On
                                             </th>
                                             <th scope="col" className="border px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -134,37 +138,40 @@ function PendingAprovals() {
                                             <td className="px-1 border text-center py-2 whitespace-nowrap">
                                                 {index+1}
                                             </td>
-                                            <td className="px-3 border py-2 whitespace-nowrap">
+                                            <td className="px-1 border py-2 whitespace-nowrap">
                                                 {user.name}
                                             </td>
-                                            <td className="border px-3 py-2 whitespace-nowrap">
+                                            <td className="border px-1 py-2 whitespace-nowrap">
                                                 {user.userName}
                                             </td>
-                                            <td className="border px-3 py-2 whitespace-wrap">
+                                            <td className="border px-1 py-2 whitespace-wrap">
                                                 {user.email}
                                             </td>
-                                            <td className="border px-3 py-2 whitespace-wrap">
+                                            <td className="border px-1 py-2 whitespace-wrap">
+                                                <span className={user.isEmailVerified==='Verified'?'text-green-800 font-bold':'text-red-700 font-bold'}>{user.isEmailVerified}</span>
+                                            </td>
+                                            <td className="border px-1 py-2 whitespace-wrap">
                                                 {user.mobileNum}
                                             </td>
                                             {user.organisation?(
-                                            <td className="border px-3 py-2 whitespace-wrap">
+                                            <td className="border px-1 py-2 whitespace-wrap">
                                                 {user.organisation}
                                             </td>
                                             ):(
-                                            <td className="border px-3 py-2 whitespace-wrap">
+                                            <td className="border px-1 py-2 whitespace-wrap">
                                                 N/A
                                             </td>
                                             )}
                                             {user.jobTitle?(
-                                            <td className="border px-3 py-2 whitespace-wrap">
+                                            <td className="border px-1 py-2 whitespace-wrap">
                                                 {user.jobTitle}
                                             </td>
                                             ):(
-                                            <td className="border px-3 py-2 whitespace-wrap">
+                                            <td className="border px-1 py-2 whitespace-wrap">
                                                 N/A
                                             </td>
                                             )}
-                                            <td className="border px-2 py-2 whitespace-wrap">
+                                            <td className="border px-1 py-2 whitespace-wrap">
                                                 {user.requestedOn}
                                             </td>
                                             <td className="border flex px-3 py-2 flex-col justify-center items-center gap-1">

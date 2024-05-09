@@ -12,6 +12,7 @@ import ActiveUserData from './Pages/ActiveUserData';
 import PendingAprovals from './Pages/PendingAprovals';
 import UserDataPage from './Pages/UserDataPage';
 import SummerEase from './Pages/SummerEase';
+import UserEmailVerification from './Pages/UserEmailVerification';
 
 
 function App() {
@@ -21,8 +22,9 @@ function App() {
       <ToastContainer position="top-right" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="light" transition: Bounce/>
       <NavbarMain/>
         <Routes>
-          <Route path='/login' element={<Login />} />
+          <Route path='/' element={<Login />} />
           <Route path='/signup' element={<Signup />} />
+          <Route path='/email-verification/:verificationToken' element={<UserEmailVerification />} />
           <Route path='/talk-ease' element={<Protected> <TalkEase/> </Protected>}/>
           <Route path='/active-users' element={<Protected> <ActiveUserData/> </Protected>}/>
           <Route path='/pending-aprovals' element={<Protected> <PendingAprovals/> </Protected>}/>
