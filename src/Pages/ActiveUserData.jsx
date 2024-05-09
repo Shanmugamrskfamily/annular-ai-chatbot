@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import MoreOptions from '../Components/UserComponents/MoreOptions';
 import DateRangeComponent from '../Components/DateComponents/DateRangeComponent';
 
-function ActiveUserData() {
+function ActiveUserData(props) {
     const activeUsersData = useSelector(state => state.adminControlls.activeUsersData);
     const [mainUsersData,setMainUserData]=useState(activeUsersData);
     const dispatch = useDispatch();
@@ -21,6 +21,7 @@ function ActiveUserData() {
     const [startDate,setStartDate]=useState();
     const [endDate,setEndDate]=useState();
     const [sortBy,setSortBy]=useState();
+    const[moduleChanged,setModuleChanged]=useState('font-bold underline')
     
     useEffect(() => {
         const userRole = localStorage.getItem('userRole');
@@ -99,6 +100,10 @@ function ActiveUserData() {
         setFilteredUsers(sortedUsers);
     };
     
+    const handleModuleChange=()=>{
+        props.moduleChanged('pendingUsers');
+        setModuleChanged('');
+      }
 
     return (
         <div className='flex w-screen h-screen'>
@@ -113,14 +118,14 @@ function ActiveUserData() {
                         <div className='flex justify-between'>
                             <div className='flex'>
                                 <Link
-                                    className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/pending-aprovals' ? 'font-bold underline' : ''}`}
-                                    to='/pending-aprovals'
+                                    className={`text-blue-600 hover:underline mr-5 hover:text-blue-800`}
+                                    onClick={handleModuleChange}
                                 >
                                     Pending Approvals
                                 </Link>
                                 <Link
-                                    className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/active-users' ? 'font-bold underline' : ''}`}
-                                    to='/active-users'
+                                    className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${moduleChanged}`}
+                                    
                                 >
                                     Active Users
                                 </Link>

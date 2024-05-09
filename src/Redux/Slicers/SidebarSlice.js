@@ -22,7 +22,7 @@ const sidebarSlice = createSlice({
       },
       adminMainMenu: (state, action) => {
         if (action.payload=== 'admin') {
-          state.menuMainOptions = [['Manage Users','/pending-aprovals'],['TalkEase','/talk-ease'], ['SummarEase','/summerease'],['DocConnect','/doc-connect'],
+          state.menuMainOptions = [['Manage Users','/manage-users'],['TalkEase','/talk-ease'], ['SummarEase','/summerease'],['DocConnect','/doc-connect'],
           ['Web Seach','/web-search'],['Ask Annular','/ask-annular'],['Search and Chat(Pilot)','/search-and-chat']];
         }
       },

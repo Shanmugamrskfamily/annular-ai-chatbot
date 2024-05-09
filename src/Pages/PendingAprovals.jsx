@@ -7,7 +7,7 @@ import { XCircleIcon,BarsArrowDownIcon,MagnifyingGlassIcon } from "@heroicons/re
 import { toast } from 'react-toastify';
 import MoreOptions from '../Components/UserComponents/MoreOptions';
 
-function PendingAprovals() {
+function PendingAprovals(props) {
     const pendingUsersData = useSelector(state => state.adminControlls.pendingUsers);
     const dispatch = useDispatch();
     const [searchInput, setSearchInput] = useState('');
@@ -16,6 +16,7 @@ function PendingAprovals() {
     let [showSide,setShowSide]=useState('hidden');
     let location=useLocation();
     const navigate=useNavigate();
+    const[moduleChanged,setModuleChanged]=useState('font-bold underline')
 
     const handlesideBarClosed=()=>{
         setSidebar(sidebar==='block'?'hidden':'block');
@@ -46,6 +47,11 @@ function PendingAprovals() {
     const handleSearchChange = (e) => {
       setSearchInput(e.target.value);
   };
+
+  const handleModuleChange=()=>{
+    props.moduleChanged('activeUsers');
+    setModuleChanged('');
+  }
     
     return (
         <div className='flex w-screen h-screen'>
@@ -62,14 +68,14 @@ function PendingAprovals() {
                         <div className='flex justify-between mb-5'>
                             <div className='flex'>
                                 <Link
-                                    className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/pending-aprovals' ? 'font-bold underline' : ''}`}
-                                    to='/pending-aprovals'
+                                    className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 cursor-pointer ${moduleChanged}`}
+                                    
                                     >
                                         Pending Approvals
                                 </Link>
                                 <Link
-                                    className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 ${location.pathname === '/active-users' ? 'font-bold underline' : ''}`}
-                                    to='/active-users'
+                                    className={`text-blue-600 hover:underline mr-5 hover:text-blue-800 `}
+                                    onClick={handleModuleChange}
                                     >
                                         Active Users
                                 </Link>

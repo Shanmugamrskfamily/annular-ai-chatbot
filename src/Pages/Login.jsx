@@ -34,7 +34,7 @@ const Login = () => {
                 localStorage.removeItem('token');
               }, 30*60*1000);
               toast.success('Login Success!');
-              navigate('/pending-aprovals');
+              navigate('/manage-users');
         }
     });
 

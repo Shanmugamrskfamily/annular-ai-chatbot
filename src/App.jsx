@@ -14,6 +14,7 @@ import UserDataPage from './Pages/UserDataPage';
 import SummerEase from './Pages/SummerEase';
 import UserEmailVerification from './Pages/UserEmailVerification';
 import DocConnect from './Pages/DocConnect';
+import ManageUsers from './Pages/ManageUsers';
 
 
 function App() {
@@ -27,8 +28,8 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/email-verification/:verificationToken' element={<UserEmailVerification />} />
           <Route path='/talk-ease' element={<Protected> <TalkEase/> </Protected>}/>
-          <Route path='/active-users' element={<Protected> <ActiveUserData/> </Protected>}/>
-          <Route path='/pending-aprovals' element={<Protected> <PendingAprovals/> </Protected>}/>
+          {/* <Route path='/active-users' element={<Protected> <ActiveUserData/> </Protected>}/> */}
+          <Route path='/manage-users' element={<Protected> <ManageUsers/> </Protected>}/>
           <Route path='/user' element={<Protected> <UserDataPage/> </Protected>}/>
           <Route path='/summerease' element={<Protected> <SummerEase/> </Protected>}/>
           <Route path='/doc-connect' element={<Protected> <DocConnect/> </Protected>}/>

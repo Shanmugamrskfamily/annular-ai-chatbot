@@ -58,7 +58,7 @@ return (
                                         </button>
                                     )}
                                 </div>
-                                <Link className='text-blue-600 underline' to='/active-users'><span><ArrowLeftIcon className="h-6 w-6 text-blue-600" />Back</span></Link>
+                                <Link className='text-blue-600 underline' to='/manage-users'><span><ArrowLeftIcon className="h-6 w-6 text-blue-600" />Back</span></Link>
                             </div>
                             <p><span className="font-semibold">Username:</span> {user.userName}</p>
                             <p><span className="font-semibold">Email:</span> {user.email}</p>
