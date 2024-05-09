@@ -11,7 +11,7 @@ function UserEmailVerification() {
         const verifyEmail = async () => {
             try {
                 const response = await axios.post(`http://localhost:4000/user/email-verification/${verificationToken}`);
-                
+                console.log('response:',response);
                 if (response.status === 200) {
                     setVerificationStatus('success');
                     toast.success('Email verified successfully! Wait for Admin Approval!');

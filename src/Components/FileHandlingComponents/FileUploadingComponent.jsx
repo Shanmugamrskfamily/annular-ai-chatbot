@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CloudArrowUpIcon,ArrowLeftIcon, ArrowRightIcon,ChevronRightIcon, ChevronLeftIcon  } from "@heroicons/react/24/solid";
+import { CloudArrowUpIcon,ChevronRightIcon, ChevronLeftIcon  } from "@heroicons/react/24/solid";
 
 const FileUploadingComponent = (props) => {
     

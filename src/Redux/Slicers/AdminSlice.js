@@ -351,7 +351,8 @@ const initialState = {
     {'start':'2023-04-30 22:15:00','end':'2023-05-01 03:15:00','sessionDuration':'05:00:12'},
     {'start':'2023-04-30 10:15:00','end':'2023-04-30 13:15:00','sessionDuration':'05:00:18'},
     ]
-  }] 
+  }],
+  docConnect:{files:['All','My Document.txt','Policies.pdf','Architecture.pdf']}
 };
 
 const adminSlice= createSlice({
@@ -364,10 +365,16 @@ const adminSlice= createSlice({
         },
         getPendingUsers:(state,action)=>{
           console.log('Action: ',action);
-        }
+        },
+        pushDocConnect: (state, action) => {
+          console.log('Action:', action);
+          const { files } = state.docConnect;
+          files.push(...action.payload);
+          console.log('Current Docs:', state.docConnect.files);
+        }        
       }
   });
   
 
-export const { getUsers,getPendingUsers } = adminSlice.actions;
+export const { getUsers,getPendingUsers,pushDocConnect } = adminSlice.actions;
 export default adminSlice.reducer;

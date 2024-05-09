@@ -13,6 +13,7 @@ import PendingAprovals from './Pages/PendingAprovals';
 import UserDataPage from './Pages/UserDataPage';
 import SummerEase from './Pages/SummerEase';
 import UserEmailVerification from './Pages/UserEmailVerification';
+import DocConnect from './Pages/DocConnect';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path='/pending-aprovals' element={<Protected> <PendingAprovals/> </Protected>}/>
           <Route path='/user' element={<Protected> <UserDataPage/> </Protected>}/>
           <Route path='/summerease' element={<Protected> <SummerEase/> </Protected>}/>
+          <Route path='/doc-connect' element={<Protected> <DocConnect/> </Protected>}/>
           <Route path='*' element={<PageNotFound/>} />
         </Routes>
       </BrowserRouter>
