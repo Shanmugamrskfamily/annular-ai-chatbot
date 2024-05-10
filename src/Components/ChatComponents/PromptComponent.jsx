@@ -5,7 +5,7 @@ import mammoth from 'mammoth';
 import * as XLSX from 'xlsx';
 
 const PromptComponent = (props) => {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(props.innerText ? props.innerText : '');
   const [fileContent, setFileContent] = useState('');
 
   const handleChange = (e) => {

@@ -5,6 +5,7 @@ import { Sidebar } from '../Components/UserComponents/Sidebar';
 import PromptComponent from '../Components/ChatComponents/PromptComponent';
 import {BarsArrowDownIcon} from "@heroicons/react/24/solid";
 import MoreOptions from '../Components/UserComponents/MoreOptions';
+import UrlInput from '../Components/ChatComponents/UrlInput';
 
 function TalkEase() {
   const conversations = useSelector(state => state.conversations.talkEaseConversation);
@@ -33,7 +34,7 @@ function TalkEase() {
     scrollToBottom();
   }, [conversations]); 
 
-  
+
   return (
     <div className='flex w-screen h-screen'>
       <BarsArrowDownIcon className={`h-8 w-8 cursor-pointer top-0 left-0 ${showSide}`} onClick={handlesideBarClosed} /> 
@@ -70,6 +71,7 @@ function TalkEase() {
             </div>
           </div>
           <div className='w-full h-[13%] items-center justify-center p-2'>
+            <UrlInput  />
             <PromptComponent onSubmit={handleSubmit} placeholder='Type Here...' isAttachment={true}/>
             <p className='text-center mt-2'>Annular Chat AI ©Annular Technologies</p>
           </div>

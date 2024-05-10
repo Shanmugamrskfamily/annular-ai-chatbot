@@ -67,7 +67,7 @@ export function Sidebar(props) {
             </Card>
             <Card className={`overflow-y-auto h-[44%] w-full p-1 shadow-xl shadow-blue-gray-900/5 dark:bg-black dark:text-white`}>
             
-              {location.pathname==='/web-search'?(null):(
+              {location.pathname==='/web-search'||location.pathname==='/manage-users'||location.pathname==='/user'?(null):(
                 <>
                 <List>
                 <ListItem className="dark:text-white">
