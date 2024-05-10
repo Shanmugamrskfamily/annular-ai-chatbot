@@ -33,6 +33,7 @@ function TalkEase() {
     scrollToBottom();
   }, [conversations]); 
 
+  
   return (
     <div className='flex w-screen h-screen'>
       <BarsArrowDownIcon className={`h-8 w-8 cursor-pointer top-0 left-0 ${showSide}`} onClick={handlesideBarClosed} /> 

@@ -84,4 +84,4 @@ const handleUpload=(data)=>{
   )
 }
 
-export default SummerEase
+export default SummerEase;
