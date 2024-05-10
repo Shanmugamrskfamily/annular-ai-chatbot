@@ -73,6 +73,8 @@ const handleUpload=(data)=>{
                         </div>
                     </div>
                 </div>
+
+                
                 <div className='w-full h-[15%] items-center justify-center p-2'>
                     <p>Enter context for summarization:</p>
                     <PromptComponent onSubmit={handleSubmit} placeholder='Write comprehensive summary of the text..' isAttachment={false}/>
