@@ -28,7 +28,6 @@ function App() {
           <Route path='/signup' element={<Signup />} />
           <Route path='/email-verification/:verificationToken' element={<UserEmailVerification />} />
           <Route path='/talk-ease' element={<Protected> <TalkEase/> </Protected>}/>
-          {/* <Route path='/active-users' element={<Protected> <ActiveUserData/> </Protected>}/> */}
           <Route path='/manage-users' element={<Protected> <ManageUsers/> </Protected>}/>
           <Route path='/user' element={<Protected> <UserDataPage/> </Protected>}/>
           <Route path='/summerease' element={<Protected> <SummerEase/> </Protected>}/>

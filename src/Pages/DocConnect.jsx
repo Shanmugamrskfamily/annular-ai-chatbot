@@ -7,6 +7,8 @@ import MoreOptions from '../Components/UserComponents/MoreOptions';
 import PromptComponent from '../Components/ChatComponents/PromptComponent';
 import { addTalkEaseConversation } from '../Redux/Slicers/ConversationSlice';
 import { pushDocConnect } from '../Redux/Slicers/AdminSlice';
+import Select from "react-select";
+import makeAnimated from "react-select/animated";
 
 function DocConnect() {
     const conversations = useSelector(state => state.conversations.talkEaseConversation);
@@ -17,6 +19,9 @@ function DocConnect() {
     const [selectedModule, setSelectedModule] = useState('upload');
     const [files, setFiles] = useState([]);
     const filesinRedux = useSelector(state => state.adminControlls.docConnect.files);
+    const animatedComponents = makeAnimated();
+    const filesOptions = files.map((file) => ({label: file, value: file }));
+    
     useEffect(() => {
         console.log('Files in Redux:', filesinRedux);
     }, [files])
@@ -64,6 +69,14 @@ function DocConnect() {
     const handleRemoveFile = (fileToRemove) => {
         setFiles(prevFiles => prevFiles.filter(file => file !== fileToRemove));
     };
+
+    const [filesTobeUsed,setFilesTobeUsed]=useState(filesOptions[0]);
+
+    const handleFilesTobeUsed = (selectedFiles) => {
+        setFilesTobeUsed(selectedFiles);
+        console.log('Files to be Used:',filesTobeUsed);
+    };
+    
 
     return (
         <div className='flex w-screen h-screen'>
@@ -113,7 +126,15 @@ function DocConnect() {
                         )}
                         {selectedModule === 'Q&A'?(
                             <div className='w-full'>
-                                <p className='text-center text-2xl'>Hai</p>
+                                <Select
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
+                                    defaultValue={[filesOptions[0]]}
+                                    isMulti
+                                    options={filesOptions}
+                                    value={filesTobeUsed}
+                                    onChange={handleFilesTobeUsed}
+                                />
                             </div>
                         ):(null)}
                         {selectedModule==='Q&A'?(

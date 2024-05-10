@@ -157,29 +157,28 @@ function ActiveUserData(props) {
 
                             </div>
                             <div className='h-full w-[48%]'>
-                            <div className='flex w-full mb-2 justify-start'>
-                                <span className='font-bold underline'>Search User By Date and Session Duration</span>
-                            </div>
-                            <div className='flex w-full mb-2 justify-end'>
-                                <DateRangeComponent result={handleDateResult}/>
+                                <div className='flex w-full mb-2 justify-start'>
+                                    <span className='font-bold underline'>Search User By Date and Session Duration</span>
+                                </div>
+                                <div className='flex w-full mb-2 justify-end'>
+                                    <DateRangeComponent result={handleDateResult}/>
                                         
-                            </div>
-                            {sortBy?(
+                                </div>
+                                {sortBy?(
                                 <div className='flex w-full justify-end'>
                                     Sort By Session Duration: 
                                     <select
-                                        value={sortBy}
-                                        onChange={handleSortbyChange}
-                                        className="border border-gray-300 rounded px-2 py-1 mb-4"
+                                    value={sortBy}
+                                    onChange={handleSortbyChange}
+                                    className="border border-gray-300 rounded px-2 py-1 mb-4"
                                     >
                                         <option value="default">Default</option>
                                         <option value="ascending">Ascending</option>
                                         <option value="descending">Descending</option>
                                     </select>
                                 </div>
-                            ):(null)}
-                        
-                        </div>
+                                ):(null)}
+                            </div>
                         </div>
                         <div className='w-full h-[78%] overflow-y-auto'>
                                 <table className="min-w-full divide-y divide-gray-200 p-2 mb-5">

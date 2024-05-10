@@ -56,8 +56,8 @@ function Signup() {
             const { countryCode, mobileNumber, ...rest } = values;
             const formData = { ...rest, mobileNumber: countryCode + mobileNumber };
             // Handle form submission here
-            toast.success('Signup successful!');
-            navigate('/login'); // Redirect to login page after successful signup
+            toast.success('Signup successful!, Verification Link Sent to Your Email');
+            navigate('/'); // Redirect to login page after successful signup
         },
     });
 

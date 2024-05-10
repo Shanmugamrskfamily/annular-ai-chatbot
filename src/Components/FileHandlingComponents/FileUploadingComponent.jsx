@@ -51,6 +51,7 @@ const FileUploadingComponent = (props) => {
                   className="hidden"
                   accept={props.allowedFileTypes}
                   onChange={handleFileChange}
+                  multiple
                 />
               </div>
             </label>
